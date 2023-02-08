@@ -28,9 +28,9 @@ public class Totito {
     public static void jugar() {
  
         //Reprentaciones de los jugadores y del simbolo vacio
-        char J1 = 'X';
-        char J2 = 'O';
-        char vacio = '-';
+        char J1 = 'X';//se colocara una X donde el Jugador 1 lo diga
+        char J2 = 'O';//Se colocara una O donde el jugador 2 diga.
+        char vacio = '-';//se colocara una O donde ningun jugador haya querido poner su "pieza"
  
         //turno actual
         //true = J1, false = J2
@@ -40,10 +40,10 @@ public class Totito {
         char tablero[][] = new char[3][3];
  
         //rellenamos la matriz con los guiones
-        rellenarMatriz(tablero, vacio);
+        rellenarMatriz(tablero, vacio);// se invoca a la función rellenar matriz
  
-        int fila, columna;
-        boolean posValida, correcto;
+        int fila, columna;//se deffinen las variables fila y columna
+        boolean posValida, correcto;//se definen como booleean las variables posValida y correcto.
  
         //No salimos hasta que uno gane o no haya mas posibilidades
         while (!finPartida(tablero, vacio)) {
@@ -51,26 +51,26 @@ public class Totito {
             do {
  
                 //mostramos el jugador al que le toca
-                mostrarTurnoActual(turno);
+                mostrarTurnoActual(turno);//se invoca a la función mostrarTurnoActual
  
                 //muestro el tablero
                 mostrarMatriz(tablero);
  
                 correcto = false;
-                fila = pedirInteger("Dame la fila");
-                columna = pedirInteger("Dame la columna");
+                fila = pedirInteger("Dame la fila");//se solicita al jugador el número de fila
+                columna = pedirInteger("Dame la columna");//se solicita al juagador el numero de columna
  
                 //Validamos la posicion
-                posValida = validarPosicion(tablero, fila, columna);
+                posValida = validarPosicion(tablero, fila, columna);//se verifica que no haya nada o que haya un - en esa posición
  
                 //Si es valido, comprobamos que no haya ninguna marca
                 if (posValida) {
  
                     //Si no hay marca, significa que es correcto
                     if (!hayValorPosicion(tablero, fila, columna, vacio)) {
-                        correcto = true;
+                        correcto = true;//si existe un - en la posición dada, convierte correcto en true
                     } else {
-                        System.out.println("Ya hay una marca en esa posicion");
+                        System.out.println("Ya hay una marca en esa posicion");//si ya contiene algo la posición, muestra el mensaje
                     }
                 } else {
                     System.out.println("La posicion no es valida");
@@ -80,18 +80,18 @@ public class Totito {
             } while (!correcto);
  
             //depende del turno, inserta un simbolo u otro
-            if (turno) {
+            if (turno) {//mantiene el turno dependiendo del jugador
                 insertarEn(tablero, fila, columna, J1);
             } else {
                 insertarEn(tablero, fila, columna, J2);
             }
  
             //cambio de turno
-            turno = !turno;
+            turno = !turno;//si el turno que estaba era del jugador 1, lo cambia al jugador 2. o al revés.
         }
  
         //Muestra el tablero
-        mostrarMatriz(tablero);
+        mostrarMatriz(tablero);//muestra como va el tablero hasta el momento
  
         //Mostramos el ganador
         mostrarGanador(tablero, J1, J2, vacio);
@@ -101,8 +101,9 @@ public class Totito {
     /**
      *
      */
-    public static void mostrarGanador(char[][] matriz, char J1, char J2, char simDef) {
- 
+    //definición de la clase mostrarGanador
+    public static void mostrarGanador(char[][] matriz, char J1, char J2, char simDef) { 
+        //usamos la clase coincidenciaLinea para ver y gano llenando una línea
         char simbolo = coincidenciaLinea(matriz, simDef);
  
         if (simbolo != simDef) {
@@ -112,7 +113,7 @@ public class Totito {
             return;
  
         }
- 
+        //usamos la clase coincidenciaColumna para saber si el jugador gano llenando una columna
         simbolo = coincidenciaColumna(matriz, simDef);
  
         if (simbolo != simDef) {
